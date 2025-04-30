@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Чаты поддержки</h2>
+<table style="width:100%; max-width:700px; margin: 0 auto;">
+    <tr>
+        <th>Пользователь / Email</th>
+        <th>Последнее сообщение</th>
+        <th>Время</th>
+        <th></th>
+    </tr>
+    {% for chat in chats %}
+    <tr>
+        <td>
+            {% if chat.user %}
+                {{ chat.user.username }}
+            {% else %}
+                {{ chat.email }}
+            {% endif %}
+        </td>
+        <td>{{ chat.text|truncatechars:40 }}</td>
+        <td>{{ chat.created_at|date:"d.m.Y H:i" }}</td>
+        <td>
+            {% if chat.user %}
+                <a href="{% url 'support_operator_chat' chat.user.id %}">Открыть</a>
+            {% else %}
+                <a href="{% url 'support_operator_chat' chat.email %}">Открыть</a>
+            {% endif %}
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}

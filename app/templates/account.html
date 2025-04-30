@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+<div style="display:flex; justify-content: center;">
+    <div class="account-container">
+        <h2>Личный кабинет</h2>
+        <div class="user-info">
+            <h3>Информация о пользователе</h3>
+            <p><strong>Имя пользователя:</strong> {{ user.username }}</p>
+            <p><strong>Электронная почта:</strong> {{ user.email }}</p>
+            <p><strong>Номер телефона:</strong>
+                {% if user.userprofile.phone_number %}
+                    {{ user.userprofile.phone_number }}
+                {% else %}
+                    <span style="color: #b22222;">Не указан. <a href="{% url 'edit_profile' %}">Заполнить</a></span>
+                {% endif %}
+            </p>
+        </div>
+        
+        <div class="account-actions">
+            <h3>Управление аккаунтом</h3>
+            <ul>
+                <li><a href="{% url 'edit_profile' %}"><strong>Редактировать профиль</strong></a></li>
+                <li><a href="{% url 'logout' %}"><strong>Выйти</strong></a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="account-container">
+        <h2>История услуг</h2>
+        <div class="order-history">
+            {% if orders %}
+                <ul>
+                    {% for order in orders %}
+                        <li>
+                            <strong>Услуга:</strong> {{ order.service.name }}<br>
+                            {% if order.variant %}
+                                <strong>Вид услуги:</strong> {{ order.variant.variant_name }}<br>
+                            {% endif %}
+                            <strong>Дата:</strong> {{ order.date }}<br>
+                            <strong>Время:</strong> {{ order.time|slice:":5" }}<br>
+                            <strong>Статус:</strong> {{ order.get_status_display|default:"В обработке" }}
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p>Вы ещё не брали услуг у нас.</p>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}

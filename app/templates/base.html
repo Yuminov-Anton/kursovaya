@@ -1,0 +1,413 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/style_main.css' %}">
+    <title>Gracefully Beauty</title>
+</head>
+<body>
+    <header class="header">
+        <div class="logo_d">
+            <img src="{% static 'images/logo.svg' %}" alt="Logo"></img>
+        </div>
+        <nav class="navpanel">
+            <ul>
+                <li><a href="{% url 'main' %}" class='navbutton'>Главная</a></li>
+                <li><a href="{% url 'main' %}#about">О нас</a></li>
+                <li><a href="{% url 'main' %}#certificates">Сертификаты и акции</a></li>
+                <li><a href="{% url 'main' %}#contacts">Контакты</a></li>
+                <li><a href="{% url 'main' %}#services" class='navbutton'>Услуги</a></li>
+                {% if user.is_authenticated %}
+                <li><a href="{% url 'account' %}" class='navbutton'>Личный кабинет</a></li>
+                {% else %}
+                <li><a id="openLoginModalBtn" class='navbutton'>Вход</a></li>
+                <li><a id="openRegisterModalBtn" class='navbutton'>Регистрация</a></li>
+                {% endif %}           
+                {% if request.user.is_staff %}
+                <li><a href="{% url 'admin:index' %}" class="navbutton">Админка</a></li>
+                <li><a href="{% url 'support_operator_dashboard' %}" class="navbutton">Чаты</a></li>
+                {% endif %}
+            </ul>
+        </nav>
+        <div class="phone">
+            <h3>Контакты</h3>
+            <h4>8-922-517-85-90</h4>
+            <h5>
+                УР, г. Ижевск, Индустрийальный р-он,<br>
+                ул. Тимирязева, д. 29.
+            </h5>
+        </div>
+    </header>
+    <div class="main-content">
+        {% block content %}
+        
+        {% endblock %}
+    </div>
+
+    
+    <!-- Модальное окно для входа -->
+    <div id="loginModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn">&times;</span>
+            <h2>Вход</h2>
+            <form method="post" action="{% url 'main' %}">
+                {% csrf_token %}
+                <input type="hidden" name="login-submit" value="1">
+                <div>
+                    <label for="{{ login_form.username.id_for_label }}">Имя пользователя:</label>
+                    {{ login_form.username }}
+                    {% if login_form.username.errors %}
+                        <div class="field-error">{{ login_form.username.errors }}</div>
+                    {% endif %}
+                </div>
+                <div>
+                    <label for="{{ login_form.password.id_for_label }}">Пароль:</label>
+                    {{ login_form.password }}
+                    {% if login_form.password.errors %}
+                        <div class="field-error">{{ login_form.password.errors }}</div>
+                    {% endif %}
+                </div>
+                {% if login_form.non_field_errors %}
+                    <div class="field-error">
+                        {{ login_form.non_field_errors }}
+                    </div>
+                {% endif %}
+                <button type="submit">Войти</button>
+                <a href="{% url 'social:begin' 'google-oauth2' %}" class="google-login">
+                    Вход через Google
+                </a>            
+            </form>
+        </div>
+    </div>
+
+    <!-- Модальное окно регистрации -->
+    <div id="registerModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn">&times;</span>
+            <h2>Регистрация</h2>
+            
+            <!-- Блок для отображения ошибок -->
+            {% comment %} {% if messages or form.errors %}
+            <div class="error-messages">
+                {% if messages %}
+                    {% for message in messages %}
+                        <div class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %}">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                {% endif %}
+                {% if form.errors %}
+                    {% for field in form %}
+                        {% for error in field.errors %}
+                            <div class="alert alert-error">
+                                {{ field.label }}: {{ error }}
+                            </div>
+                        {% endfor %}
+                    {% endfor %}
+                    {% for error in form.non_field_errors %}
+                        <div class="alert alert-error">
+                            {{ error }}
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            </div>
+            {% endif %} {% endcomment %}
+    
+            <form method="post" action="{% url 'main' %}">
+                {% csrf_token %}
+                <input type="hidden" name="register-submit" value="1">
+                <div>
+                    <label for="{{ form.username.id_for_label }}">Имя пользователя:</label>
+                    {{ form.username }}
+                    {% comment %} {% if form.username.errors %}
+                        <div class="field-error">{{ form.username.errors }}</div>
+                    {% endif %} {% endcomment %}
+                </div>
+                <div>
+                    <label for="{{ form.email.id_for_label }}">Электронная почта:</label>
+                    {{ form.email }}
+                    {% comment %} {% if form.email.errors %}
+                        <div class="field-error">{{ form.email.errors }}</div>
+                    {% endif %} {% endcomment %}
+                </div>
+                <!-- <div>
+                    <label for="{{ form.phone_number.id_for_label }}">Номер телефона:</label>
+                    {{ form.phone_number }}
+                    {% comment %} {% if form.phone_number.errors %}
+                        <div class="field-error">{{ form.phone_number.errors }}</div>
+                    {% endif %} {% endcomment %}
+                </div> -->
+                <div>
+                    <label for="{{ form.password1.id_for_label }}">Пароль:</label>
+                    {{ form.password1 }}
+                    {% comment %} {% if form.password1.errors %}
+                        <div class="field-error">{{ form.password1.errors }}</div>
+                    {% endif %} {% endcomment %}
+                </div>
+                <div>
+                    <label for="{{ form.password2.id_for_label }}">Подтвердите пароль:</label>
+                    {{ form.password2 }}
+                    {% comment %} {% if form.password2.errors %}
+                        <div class="field-error">{{ form.password2.errors }}</div>
+                    {% endif %} {% endcomment %}
+                </div>
+                <button type="submit">Зарегистрироваться</button>
+                {% if messages %}
+                    <div class="messages">
+                        {% for message in messages %}
+                            <div class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %}">
+                                {{ message|safe }}
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            
+                {% if form.errors %}
+                    {% for field in form %}
+                        {% for error in field.errors %}
+                            <div class="alert alert-error">
+                                {{ field.label }}: {{ error }}
+                            </div>
+                        {% endfor %}
+                    {% endfor %}
+                    {% for error in form.non_field_errors %}
+                        <div class="alert alert-error">
+                            {{ error }}
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            </form>
+        </div>
+    </div>
+    
+    <!-- Кнопка чата -->
+    <button id="support-chat-btn" title="Чат с поддержкой">
+        <span aria-label="Чат">&#128172;</span>
+    </button>
+  
+    <!-- Модальное окно чата -->  
+    <div id="support-chat-modal">
+        <div id="support-chat-header">
+            Поддержка
+            <button id="support-chat-close" title="Закрыть">&times;</button>
+        </div>
+        <div id="support-chat-body">
+            <div id="support-chat-messages"></div>
+            <form id="support-chat-form" autocomplete="off">
+                <input type="email" id="support-chat-email" placeholder="Ваша почта" required>
+                <textarea id="support-chat-message" placeholder="Ваш вопрос..." required></textarea>
+                <button type="submit">Отправить</button>
+            </form>
+            <div id="support-chat-success">Ваше сообщение отправлено!</div>
+            <div id="support-chat-error">Ошибка отправки. Попробуйте позже.</div>
+        </div>
+    </div>
+
+    <script>
+        // Получаем элементы для входа
+        var loginModal = document.getElementById("loginModal");
+        var openLoginModalBtn = document.getElementById("openLoginModalBtn");
+        var closeLoginBtn = loginModal.getElementsByClassName("close-btn")[0];
+        
+        // Функция для открытия модального окна входа
+        function showLoginModal() {
+            loginModal.style.display = "block";
+        }
+        
+        // Функция для закрытия модального окна входа
+        function hideLoginModal() {
+            loginModal.style.display = "none";
+        }
+        
+        // Открыть модальное окно при клике на кнопку
+        openLoginModalBtn.onclick = showLoginModal;
+        
+        // Закрыть модальное окно при клике на крестик
+        closeLoginBtn.onclick = hideLoginModal;
+        
+        // Закрыть модальное окно при клике вне его
+        window.onclick = function(event) {
+            if (event.target == loginModal) {
+                hideLoginModal();
+            }
+        }
+        
+        // Показать модальное окно, если есть ошибки
+        {% if show_login_modal or login_form.errors %}
+            showLoginModal();
+        {% endif %}
+        
+        // Предотвращаем закрытие модального окна при отправке формы с ошибками
+        document.querySelector('#loginModal form').addEventListener('submit', function(e) {
+            if (!this.checkValidity()) {
+                e.preventDefault();
+                showLoginModal();
+            }
+        });
+
+        // Получаем элементы модального окна
+        var registerModal = document.getElementById("registerModal");
+        var openRegisterModalBtn = document.getElementById("openRegisterModalBtn");
+        var closeRegisterBtn = registerModal.getElementsByClassName("close-btn")[0];
+    
+        // Функция для открытия модального окна
+        function showRegisterModal() {
+            registerModal.style.display = "block";
+        }
+    
+        // Функция для закрытия модального окна
+        function hideRegisterModal() {
+            registerModal.style.display = "none";
+        }
+    
+        // Открыть модальное окно при клике на кнопку
+        openRegisterModalBtn.onclick = showRegisterModal;
+    
+        // Закрыть модальное окно при клике на крестик
+        closeRegisterBtn.onclick = hideRegisterModal;
+    
+        // Закрыть модальное окно при клике вне его
+        window.onclick = function(event) {
+            if (event.target == registerModal) {
+                hideRegisterModal();
+            }
+        }
+    
+        // Показать модальное окно, если есть ошибки или флаг show_register_modal
+        {% if show_register_modal or form.errors or messages %}
+            showRegisterModal();
+        {% endif %}
+    
+        // Предотвращаем закрытие модального окна при отправке формы с ошибками
+        document.querySelector('#registerModal form').addEventListener('submit', function(e) {
+            if (!this.checkValidity()) {
+                e.preventDefault();
+                showRegisterModal();
+            }
+        });
+    </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var regForm = document.querySelector('#registerModal form');
+            if (regForm) {
+                regForm.addEventListener('submit', function(e) {
+                    var btn = regForm.querySelector('button[type="submit"], input[type="submit"]');
+                    if (btn) {
+                        btn.disabled = true;
+                        btn.innerText = 'Отправка...'; // по желанию
+                    }
+                });
+            }
+        });
+    </script>
+    {% if show_register_modal or form.errors or messages %}
+    <script>
+        showRegisterModal();
+    </script>
+    {% endif %}
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const chatBtn = document.getElementById('support-chat-btn');
+            const chatModal = document.getElementById('support-chat-modal');
+            const chatClose = document.getElementById('support-chat-close');
+            const chatForm = document.getElementById('support-chat-form');
+            const chatSuccess = document.getElementById('support-chat-success');
+            const chatError = document.getElementById('support-chat-error');
+            const chatEmail = document.getElementById('support-chat-email');
+            const chatMsg = document.getElementById('support-chat-message');
+            const chatMessages = document.getElementById('support-chat-messages');
+            let userEmail = "";
+        
+            function renderMessages(messages) {
+                chatMessages.innerHTML = "";
+                messages.forEach(msg => {
+                    const div = document.createElement('div');
+                    div.className = 'support-chat-msg' + (msg.is_from_support ? ' support' : '');
+                    div.innerHTML = msg.text + `<span class="msg-time">${msg.created_at}${msg.is_from_support ? " (поддержка)" : ""}</span>`;
+                    chatMessages.appendChild(div);
+                });
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+            }
+        
+            function loadHistory() {
+                if (!userEmail) return;
+                fetch(`/support/chat/history/?email=${encodeURIComponent(userEmail)}`)
+                    .then(resp => resp.json())
+                    .then(data => {
+                        renderMessages(data.messages || []);
+                    });
+            }
+        
+            // Открыть чат
+            chatBtn.onclick = function() {
+                chatModal.classList.add('active');
+                chatSuccess.style.display = 'none';
+                chatError.style.display = 'none';
+                chatForm.style.display = 'flex';
+                chatForm.reset();
+                userEmail = "";
+                chatMessages.innerHTML = '<div style="color:#888;">Загрузка истории...</div>';
+            };
+            // Закрыть чат
+            chatClose.onclick = function() {
+                chatModal.classList.remove('active');
+                chatSuccess.style.display = 'none';
+                chatError.style.display = 'none';
+                chatForm.style.display = 'flex';
+                chatForm.reset();
+                chatMessages.innerHTML = '';
+            };
+        
+            // При вводе email — загружаем историю
+            chatEmail.addEventListener('blur', function() {
+                if (chatEmail.value && chatEmail.value !== userEmail) {
+                    userEmail = chatEmail.value;
+                    loadHistory();
+                }
+            });
+        
+            // Отправка формы (AJAX)
+            chatForm.onsubmit = function(e) {
+                e.preventDefault();
+                chatSuccess.style.display = 'none';
+                chatError.style.display = 'none';
+                chatForm.querySelector('button[type="submit"]').disabled = true;
+                userEmail = chatEmail.value;
+                fetch('/support/chat/send/', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRFToken': '{{ csrf_token }}'
+                    },
+                    body: JSON.stringify({
+                        email: chatEmail.value,
+                        message: chatMsg.value
+                    })
+                })
+                .then(resp => resp.json())
+                .then(data => {
+                    if (data.success) {
+                        chatMsg.value = "";
+                        chatSuccess.style.display = 'block';
+                        chatError.style.display = 'none';
+                        loadHistory();
+                    } else {
+                        chatError.textContent = data.error || 'Ошибка отправки. Попробуйте позже.';
+                        chatError.style.display = 'block';
+                    }
+                })
+                .catch(() => {
+                    chatError.textContent = 'Ошибка отправки. Попробуйте позже.';
+                    chatError.style.display = 'block';
+                })
+                .finally(() => {
+                    chatForm.querySelector('button[type="submit"]').disabled = false;
+                });
+            };
+        });
+    </script>
+</body>
+</html>

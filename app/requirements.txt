@@ -1,0 +1,8 @@
+# pip install -r requirements.txt
+# Bearded Icons
+social-auth-app-django
+django
+pillow
+django-widget-tweaks
+django-unfold
+

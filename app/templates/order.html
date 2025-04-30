@@ -1,0 +1,130 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="booking-page">
+    <h2>Запись на услугу</h2>
+    {% if no_slots_message %}
+        <div class="alert alert-warning" style="color: #b22222; margin-bottom: 10px;">
+            {{ no_slots_message }}
+        </div>
+    {% endif %}
+    {% if not no_slots_message or time_slots %}
+    <form method="post" id="order-form">
+        {% csrf_token %}
+
+        {% if errors %}
+            <div class="alert alert-error" style="color: #b22222; margin-bottom: 10px;">
+                {% for field, error in errors.items %}
+                    {% if field != 'phone' %}
+                        <div>{{ error }}</div>
+                    {% endif %}
+                {% endfor %}
+            </div>
+        {% endif %}
+
+        <div>
+            <label for="name">Имя:</label>
+            <input type="text" id="name" name="name" required value="{{ form_data.name|default_if_none:'' }}">
+        </div>
+        <div>
+            <label for="phone">Телефон:</label>
+            {% if user.userprofile.phone_number %}
+                <input type="tel" id="phone" name="phone" value="{{ user.userprofile.phone_number }}">
+            {% else %}
+                <input type="tel" id="phone" name="phone" required value="{{ form_data.phone|default_if_none:'' }}">
+            {% endif %}
+            {% if errors.phone %}
+                <div class="alert alert-error" style="color: #b22222;">{{ errors.phone }}</div>
+            {% endif %}
+        </div>
+        <div>
+            <label for="service">Услуга:</label>
+            <input type="hidden" name="service" value="{{ service.id }}">
+            <input type="text" value="{{ service.name }}" readonly>
+        </div>
+        {% if variant_obj %}
+        <div>
+            <label for="variant">Вид услуги:</label>
+            <input type="hidden" name="variant" value="{{ variant_obj.id }}">
+            <input type="text" value="{{ variant_obj.variant_name }}{% if variant_obj.price %} — {{ variant_obj.price }} ₽{% endif %}" readonly>
+        </div>
+        {% endif %}
+        <div>
+            <label for="master">Мастер:</label>
+            <input type="text" value="{{ service.master }}" readonly>
+        </div>
+        <div>
+            <label for="duration">Длительность услуги:</label>
+            <input type="text" value="{{ service.duration }}" readonly>
+        </div>
+        <div>
+            <label for="date">Дата:</label>
+            <input type="date" id="date" name="date" required value="{{ form_data.date|default_if_none:'' }}" min="{{ tomorrow }}">
+        </div>
+        <div>
+            <label for="time">Слоты:</label>
+            <select id="time" name="time" required {% if not time_slots %}disabled{% endif %}>
+                <option value="">Выберите время</option>
+                {% for slot in time_slots %}
+                    <option value="{{ slot }}"
+                        {% if form_data.time == slot %}selected{% endif %}>
+                        {{ slot }}
+                    </option>
+                {% endfor %}
+            </select>
+            <div id="no-slots-message" style="color: #b22222; margin-top: 5px; display: none;"></div>
+            {% if errors.time %}
+                <div class="alert alert-error" style="color: #b22222;">{{ errors.time }}</div>
+            {% endif %}
+        </div>
+            <button type="submit" class="highlight">Записаться</button>
+    </form>
+    {% endif %}
+    {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+                <li>{{ message }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const dateInput = document.getElementById('date');
+    const timeSelect = document.getElementById('time');
+    const serviceId = "{{ service.id }}";
+    const variantId = "{{ variant_obj.id|default:'' }}";
+    const noSlotsDiv = document.getElementById('no-slots-message');
+
+    dateInput.addEventListener('change', function() {
+        const date = dateInput.value;
+        if (!date) return;
+        // AJAX запрос на сервер за свободными слотами
+        fetch(`/ajax/get_time_slots/?service_id=${serviceId}&date=${date}&variant_id=${variantId}`)
+            .then(response => response.json())
+            .then(data => {
+                // Очистить select
+                timeSelect.innerHTML = '';
+                if (data.time_slots.length === 0) {
+                    timeSelect.disabled = true;
+                    noSlotsDiv.style.display = 'block';
+                    noSlotsDiv.textContent = data.no_slots_message || "К сожалению, на выбранную дату нет свободных слотов для записи.";
+                } else {
+                    timeSelect.disabled = false;
+                    noSlotsDiv.style.display = 'none';
+                    let option = document.createElement('option');
+                    option.value = '';
+                    option.textContent = 'Выберите время';
+                    timeSelect.appendChild(option);
+                    data.time_slots.forEach(function(slot) {
+                        let opt = document.createElement('option');
+                        opt.value = slot;
+                        opt.textContent = slot;
+                        timeSelect.appendChild(opt);
+                    });
+                }
+            });
+    });
+});
+</script>
+{% endblock %}

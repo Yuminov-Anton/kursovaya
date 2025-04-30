@@ -1,0 +1,241 @@
+
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+    <div class="image-container">
+        <img class="background" src="{% static 'images/mramor.jpg' %}" alt="Фоновое изображение">
+        <img class="logo" src="{% static 'images/logo+description.svg' %}" alt="лого">       
+    </div>
+    <div class="about-section" id="about">
+        <div class="about-header" style="padding-top: 40px;">
+            <img src="{% static 'images/logo+description.svg' %}" alt="Gracefully Beauty" class="about-logo">
+            <h3 class="about-title">О нас</h3>
+        </div>
+        <div class="about-text" style="max-width: 700px; margin: 0 auto; padding: 0 24px 40px 24px;">
+            <p><b>Вас приветствует студия красоты <span class="about-highlight">GRACEFULLY BEAUTY</span>!</b></p>
+            <p>В нашей студии работают только <b>сертифицированные мастера</b>, которые заботятся о вашем комфорте.</p>
+            <ul class="about-list-main">
+                <li>Акции каждый месяц</li>
+                <li>Маникюр, наращивание ресниц, ламинирование бровей и ресниц</li>
+            </ul>
+            <p style="margin-bottom: 8px;"><b>Почему выбирают нас?</b></p>
+            <ul class="about-list-why">
+                <li><b>Безопасность:</b> стерилизуем инструменты по СанПин, используем только одноразовые расходники, обрабатываем рабочие места до и после каждого клиента.</li>
+                <li><b>Уют:</b> напитки, угощения, приятная беседа или музыка по вашему вкусу.</li>
+                <li><b>Качество:</b> премиум-материалы, индивидуальный подход к структуре ваших ногтей.</li>
+            </ul>
+            <div class="about-address">
+                <b>Адрес:</b> ул. Тимирязева 29 (со стороны Пятёрочки)
+            </div>
+            <div class="about-welcome">
+                <b>Мы очень рады новым клиентам. Ждём вас в студии!</b>
+            </div>
+        </div>
+    </div>
+    <div class="content-overlay" id="services">
+        <h2 class="services-section-title">Наши услуги</h2>
+        <div class="container">
+            {% for service in services %}
+            <div class="card">
+                <h3>{{ service.name }}</h3>
+                <div class="info-block">
+                    <p><span class="highlight">Длительность:</span> {{ service.duration }}</p>
+                    <p><span class="highlight">Мастер:</span> {{ service.master }}</p>
+                </div>
+                {% if service.details %}
+                <div class="info-block">
+                    <p><span class="highlight">Детали:</span></p>
+                    <ul>
+                        {% for line in service.details.splitlines %}
+                            <li>{{ line }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                {% endif %}
+                {% if service.variants.all %}
+                <div class="info-block">
+                    <p><span class="highlight">Виды:</span></p>
+                        {% for variant in service.variants.all %}
+                            {{ variant.variant_name }}<br>
+                            {% comment %} — {{ variant.price }} ₽ {% endcomment %}
+                        {% endfor %}
+                </div>
+                {% endif %}
+                <div class="info-block" style="text-align: center; margin-top: 20px;">
+                    <p style="font-size: 18px;">
+                        <a href="{% url 'service_detail' pk=service.id %}" class="highlight">Подробнее</a>        
+                        {% comment %} 
+                        {% if user.is_authenticated %}
+                        <a href="{% url 'order' pk=service.id %}" class="highlight">Записаться</a>
+                        {% else %}
+                            <a href="#" class="highlight" onclick="showLoginPrompt(); return false;">Записаться</a>
+                        {% endif %} 
+                        {% endcomment %}
+                    </p>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    {% comment %} <div class="content-overlay" id="services">
+        <h2 class="services-section-title">Наши услуги</h2>
+        <div class="container">
+            <!-- Первая карточка -->
+            <div class="card">
+                <h3>Маникюр со снятием и покрытием</h3>
+                <div class="info-block">
+                    <p><span class="highlight">Длительность:</span> 2 часа</p>
+                    <p><span class="highlight">Мастер:</span> Эмилия</p>
+                </div>
+                
+                <div class="info-block">
+                    <p><span class="highlight">Виды Маникюр:</span></p>
+                    <ul>
+                        <li>Со снятием и покрытием</li>
+                        <li>Со снятием и покрытием</li>
+                        <li>Со снятием и покрытием</li>
+                    </ul>
+                </div>
+
+                <div class="info-block" style="text-align: center; margin-top: 20px;">
+                    <p style="font-size: 18px;"><a href="#" class="highlight">Записаться</a></p>
+                </div>
+            </div>
+
+            <!-- Вторая карточка -->
+            <div class="card">
+                <h3>Наращивание ресниц</h3>
+                <div class="info-block">
+                    <p><span class="highlight">Длительность:</span> 2.5 часа</p>
+                    <p><span class="highlight">Мастер:</span> Анна</p>
+                </div>
+                
+                <div class="info-block">
+                    <p><span class="highlight">Виды наращивания:</span></p>
+                    <ul>
+                        <li>Классика</li>
+                        <li>2D эффект</li>
+                        <li>3D эффект</li>
+                    </ul>
+                </div>
+                
+                <div class="info-block" style="text-align: center; margin-top: 20px;">
+                    <p style="font-size: 18px;"><a href="#" class="highlight">Записаться</a></p>
+                </div>
+            </div>
+
+            <!-- Третья карточка -->
+            <div class="card">
+                <h3>Окрашивание волос</h3>
+                <div class="info-block">
+                    <p><span class="highlight">Длительность:</span> 3-4 часа</p>
+                    <p><span class="highlight">Мастер:</span> Мария</p>
+                </div>
+                
+                <div class="info-block">
+                    <p><span class="highlight">Услуги:</span></p>
+                    <ul>
+                        <li>Однотонное окрашивание</li>
+                        <li>Мелирование</li>
+                        <li>Сложное окрашивание</li>
+                    </ul>
+                </div>
+                
+                <div class="info-block" style="text-align: center; margin-top: 20px;">
+                    <p style="font-size: 18px;"><a href="#" class="highlight">Записаться</a></p>
+                </div>
+            </div>
+
+            <!-- Четвертая карточка -->
+            <div class="card">
+                <h3>Педикюр</h3>
+                <div class="info-block">
+                    <p><span class="highlight">Длительность:</span> 1.5 часа</p>
+                    <p><span class="highlight">Мастер:</span> Виктория</p>
+                </div>
+                
+                <div class="info-block">
+                    <p><span class="highlight">Включает:</span></p>
+                    <ul>
+                        <li>Обработка стоп</li>
+                        <li>Покрытие гель-лаком</li>
+                        <li>SPA-уход</li>
+                    </ul>
+                </div>
+                
+                <div class="info-block" style="text-align: center; margin-top: 20px;">
+                    <p style="font-size: 18px;"><a href="#" class="highlight">Записаться</a></p>
+                </div>
+            </div>
+        </div>
+    </div> {% endcomment %}
+    <div class="contacts-map-section" id="contacts">
+        <h2 class="contacts-title">Контакты</h2>
+        <div class="contacts-map-inner">
+            <div class="contacts-info-cards">
+                <div class="contacts-card contacts-address-card">
+                    <h4>Адрес</h4>
+                    <p><b>г. Ижевск</b></p>
+                    <p>ул. Тимирязева 29</p>
+                    <p><b>Время работы:</b><br>
+                        Пн–Сб: 10:00–20:00<br>
+                        Вс: 11:00–18:00
+                    </p>
+                </div>
+                <div class="contacts-card contacts-connect-card">
+                    <h4>Связаться с нами</h4>
+                    <p><b>Телефон:</b> <a href="tel:+79999999999">+7 (999) 999-99-99</a></p>
+                    <p><b>Мы в VK:</b> <a href="https://vk.com/gracefully_beauty_izh" target="_blank">gracefully_beauty_izh</a></p>
+                </div>
+            </div>
+            <div class="contacts-map">
+                <div class="map-placeholder">
+                    <iframe src="https://yandex.ru/map-widget/v1/?um=constructor%3A76dab35d5f74db5739b3c82374cace3b4009e0d4976d92508463884f8f57a7b0&amp;source=constructor" width="500" height="400" frameborder="0"></iframe>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Сертификаты и акции -->
+    <div class="certificates-promotions-section" id="certificates">
+        <h2 class="section-title">Сертификаты и акции</h2>
+        <div class="cert-promos-cards">
+            <!-- Карточка сертификата -->
+            <div class="cert-promo-card">
+                <h3>Подарочный сертификат</h3>
+                <img src="{% static 'images/certificate_example.jpg' %}" alt="Подарочный сертификат">
+                <p>Порадуйте близких и друзей — подарите им возможность выбрать любую услугу в нашей студии!</p>
+                <ul>
+                    <li>Любой номинал</li>
+                    <li>Красивое оформление</li>
+                    <li>Срок действия — 6 месяцев</li>
+                </ul>
+                <a href="https://vk.com/gracefully_beauty_izh" target="_blank" class="highlight cert-promo-link">Узнать подробнее</a>
+            </div>
+            <!-- Карточка акции -->
+            <div class="cert-promo-card">
+                <h3>Акция месяца</h3>
+                <img src="{% static 'images/promo_example.jpg' %}" alt="Акция месяца">
+                <p><b>Маникюр + покрытие гель-лаком</b> — всего <span class="highlight price">1490 ₽</span>!</p>
+                <ul>
+                    <li>Включено снятие старого покрытия</li>
+                    <li>Дизайн 2 ногтей в подарок</li>
+                    <li>Акция действует до конца месяца</li>
+                </ul>
+                <a href="#" class="highlight cert-promo-link">Записаться по акции</a>
+            </div>
+        </div>
+    </div>
+
+    {% comment %} <script>
+    function showLoginPrompt() {
+        // Можно использовать alert или красивое модальное окно
+        alert('Пожалуйста, войдите в аккаунт, чтобы записаться на услугу.');
+        // Если у тебя есть модальное окно для входа, можешь открыть его так:
+        // document.getElementById('loginModal').style.display = 'block';
+        // Или вызвать функцию showLoginModal(), если она есть
+        if (typeof showLoginModal === 'function') {
+            showLoginModal();
+        }
+    }
+    </script> {% endcomment %}
+{% endblock %}

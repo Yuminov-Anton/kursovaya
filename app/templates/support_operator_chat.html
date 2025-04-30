@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Чат с {{ chat_name }}</h2>
+<div style="max-width:700px; margin:0 auto;">
+    <div style="background:#faf8fa; border-radius:10px; padding:18px; margin-bottom:18px;">
+        {% for msg in messages %}
+            <div style="margin-bottom:12px;{% if msg.is_from_support %} color:#1e5bb2;{% endif %}">
+                <b>{% if msg.is_from_support %}Поддержка{% else %}Пользователь{% endif %}:</b>
+                {{ msg.text }}<br>
+                <span style="font-size:0.9em; color:#888;">{{ msg.created_at|date:"d.m.Y H:i" }}</span>
+            </div>
+        {% endfor %}
+    </div>
+    <form method="post">{% csrf_token %}
+        <textarea name="reply" rows="3" style="width:100%; border-radius:7px; border:1px solid #b48eae; padding:8px;" placeholder="Ваш ответ..." required></textarea>
+        <button type="submit" style="margin-top:8px; background:#b22222; color:#fff; border:none; border-radius:7px; padding:8px 18px;">Отправить</button>
+    </form>
+</div>
+{% endblock %}

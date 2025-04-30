@@ -1,0 +1,1728 @@
+/* body {
+    margin: 0;
+} */
+
+html, body { 
+    /* display: flex; 
+    flex-direction: column;  */
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    scroll-behavior: smooth;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+} 
+
+.main-content { 
+    flex: 1 0 auto;
+    padding-top: 100px; /* Высота вашего header */
+} 
+
+.header {
+    height: 100px;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 20px;
+    background: linear-gradient(
+        45deg,
+        #ff9a9e,
+        #fad0c4,
+        #ffd1ff,
+        #ff9a9e
+    );
+    background-size: 300% 300%;
+    animation: sunset 15s ease infinite;
+    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+}
+
+@keyframes sunset {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+/* Стиль для навигационной панели */
+
+.logo_d {
+    display: flex;
+    align-items: center;
+}
+
+.logo_d img {
+    height: 200px; /* Измените размер логотипа */
+}
+
+.navpanel {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    flex-grow: 1;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.navpanel ul {
+    display: flex;
+    gap: 20px;
+}
+
+.navpanel li {
+    list-style: none;
+}
+
+.navpanel a {
+    text-decoration: none;
+    font-size: 25px;
+    color: rgb(0, 0, 0);
+    font-weight: bold;
+    padding: 10px;
+}
+
+.navpanel a:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+    border-radius: 5px;
+}
+
+.phone {
+    margin-right: 30px;
+    text-align:left;
+    color: rgb(0, 0, 0);
+    border: #b921547a solid 1px;
+    box-shadow: 0 4px 8px rgba(70, 44, 44, 0.2); /* Добавляет тень к границе */
+    border-radius: 10px;
+    padding: 5px;
+}
+
+.phone h3 {
+    text-align: center;
+    margin: 0;
+    color: #000000;
+}
+
+
+.phone h4 {
+    margin: 0;
+    /* text-align: center; */
+    font-size: 18px; /* При необходимости измените размер шрифта */
+    font-weight: bold; /* Пример стиля, измените по необходимости */
+}
+
+.phone h5 {
+    margin: 0;
+    font-size: 14px;
+}
+
+/* Конец стиля для навигационной панели */
+/* Стиль для подвала */
+
+.site-footer {
+    flex-shrink: 0;
+    width: 100vw;
+    position: relative;
+    left: 50%;
+    right: 50%;
+    margin-left: -50vw;
+    margin-right: -50vw;
+    background: linear-gradient(
+        90deg,
+        #ff9a9e 0%,
+        #fad0c4 40%,
+        #ffd1ff 100%
+    );
+    background-size: 200% 200%;
+    animation: sunset 15s ease infinite;
+    color: #222;
+    padding: 40px 0 18px 0;
+    font-size: 1rem;
+    margin-top: 0;
+    box-shadow: 0 -2px 15px rgba(0,0,0,0.07);
+}
+
+@keyframes sunset {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+.footer-grid {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    max-width: 1200px;
+    margin: 0 auto 18px auto;
+    padding: 0 24px;
+    flex-wrap: wrap;
+    gap: 32px;
+}
+
+.footer-col {
+    flex: 1 1 220px;
+    min-width: 200px;
+}
+
+.footer-col h3 {
+    margin-top: 0;
+    margin-bottom: 16px;
+    font-size: 20px;
+    color: #e67e22;
+    letter-spacing: 1px;
+}
+
+.footer-col ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.footer-col ul li {
+    margin-bottom: 8px;
+}
+
+.footer-col a {
+    color: #222;
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+.footer-col a:hover {
+    color: #e67e22;
+    text-decoration: underline;
+}
+
+.footer-bottom {
+    text-align: center;
+    color: #555;
+    font-size: 15px;
+    padding-top: 10px;
+    border-top: 1px solid #f3c6e2;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+@media (max-width: 900px) {
+    .footer-grid {
+        flex-direction: column;
+        align-items: center;
+        gap: 18px;
+        padding: 0 8px;
+    }
+    .footer-col {
+        min-width: 0;
+        width: 100%;
+        text-align: center;
+    }
+}
+
+/* Конец стиля для подвала */
+/* Главная страница  */
+
+.image-container {
+    position: relative;
+    width: 100%;
+     height: 100vh; /*Высота на весь экран */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.background {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 1;
+}
+.logo { /* Добавьте этот класс в ваш HTML для изображения логотипа */
+    position: relative;
+    z-index: 2; /* Поверх фонового изображения */
+    width: 100%; /* Или другой размер по вашему желанию */
+    max-width: 2000px; /* Максимальная ширина */
+    margin-bottom: 100px;
+    height: auto;
+    display: block;
+}
+
+.content-overlay {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    display: block; /* Меняем flex на block */
+    background: linear-gradient(
+        180deg,
+        #EFEFEF 5%,                  
+        rgba(236, 87, 155, 0.4) 30%,
+        rgba(236, 87, 155, 0.15) 80%,
+        #EFEFEF 100%
+    );
+    background-size: 100% 100%;
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    width: 100%;
+    gap: 50px;
+}
+
+
+.card {
+    background: rgba(255, 255, 255, 0.7);
+    padding: 20px;
+    border-radius: 15px;
+    width: 350px;
+    height: 450px;
+    backdrop-filter: blur(5px);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    transition: transform 0.3s ease;
+    display: flex; /* Добавляем flex */
+    flex-direction: column; /* Вертикальное расположение элементов */
+}
+
+.card:hover {
+    transform: translateY(-5px);
+}
+
+.card h3 {
+    color: #333;
+    font-size: 24px;
+    height: 40px; /* Уменьшена высота с 60px до 40px */
+    margin-bottom: 15px; /* Уменьшен отступ с 20px до 15px */
+    font-weight: 600;
+    text-align: center;
+    border-bottom: 2px solid rgba(255, 20, 147, 0.5);
+    padding-bottom: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.card p {
+    color: #444;
+    font-size: 20px;
+    line-height: 1.6;
+    margin: 0;
+}
+
+/* Стили для иконок и важной информации */
+.card .highlight {
+    font-size: 20px;
+    color: deeppink;
+    font-weight: 600;
+}
+
+/* Стили для ссылок */
+.card a {
+    color: deeppink;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.card a:hover {
+    color: #ff1493;
+}
+
+/* Стили для времени и адреса */
+.card .info-block {
+    background: rgba(255, 255, 255, 0.5);
+    border-radius: 8px;
+    font-size: 20px;
+    margin: 8px 0;
+}
+
+/* Добавляем стиль для последнего info-block с кнопкой */
+.card .info-block:last-child {
+    margin-top: auto; /* Прижимает блок к низу */
+}
+
+.slides-container {
+    display: flex;
+    width: 400px;
+    transition: transform 0.5s ease-in-out;
+}
+
+.slider-title {
+    color: white;
+    font-size: 24px;
+    text-align: center;
+    margin: 0; 
+    padding: 10px 0 10px 0;
+    background: rgba(255, 20, 147, 0.7);
+    border-radius: 10px;
+    backdrop-filter: blur(5px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    width: 400px;
+}
+
+.slider {
+    width: 400px;
+    overflow: hidden;
+    background: rgba(255, 255, 255, 0.7); /* Добавляем прозрачный фон слайдеру */
+    border-radius: 10px;
+    backdrop-filter: blur(5px); /* Добавляем размытие фона */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Добавляем тень */
+}
+
+.slide img {
+    width: 400px;
+    height: 500px;
+    object-fit: cover;
+    display: block;
+    border-radius: 10px;
+    opacity: 0.9; /* Добавляем небольшую прозрачность изображениям */
+}
+
+/* Общие стили для модальных окон */
+.modal {
+    display: none; /* Скрыть по умолчанию */
+    position: fixed;
+    z-index: 1000; /* Поверх всех элементов */
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.7); /* Полупрозрачный темный фон */
+    backdrop-filter: blur(5px); /* Размытие фона */
+}
+
+.modal-content {
+    background-color: #fff; /* Белый фон для контента */
+    margin: 10% auto; /* Центрирование по вертикали */
+    padding: 20px;
+    border-radius: 10px; /* Скругленные углы */
+    width: 90%;
+    max-width: 500px; /* Максимальная ширина */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Тень для объема */
+    animation: fadeIn 0.3s ease-in-out; /* Анимация появления */
+}
+
+.close-btn {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: color 0.2s;
+}
+
+.close-btn:hover,
+.close-btn:focus {
+    color: #000;
+    text-decoration: none;
+}
+
+.modal-content h2 {
+    margin-top: 0;
+    font-size: 24px;
+    color: #333;
+    text-align: center;
+}
+
+.modal-content form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.modal-content label {
+    font-size: 16px;
+    color: #555;
+}
+
+.modal-content input[type="text"],
+.modal-content input[type="password"] {
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    transition: border-color 0.2s;
+}
+
+.modal-content input[type="text"]:focus,
+.modal-content input[type="password"]:focus {
+    border-color: #888;
+}
+
+.modal-content button {
+    padding: 10px;
+    font-size: 16px;
+    color: #fff;
+    background-color: #007bff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.modal-content button:hover {
+    background-color: #0056b3;
+}
+
+/* Анимация появления модального окна */
+@keyframes fadeIn {
+from {
+    opacity: 0;
+    transform: translateY(-20px);
+}
+to {
+    opacity: 1;
+    transform: translateY(0);
+}
+}
+
+.user-info, .account-actions {
+    margin-bottom: 20px;
+}
+
+.user-info p, .account-actions ul {
+    font-size: 16px;
+    color: #333;
+}
+
+.account-actions ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.account-actions li {
+    margin-bottom: 10px;
+}
+
+.account-actions a {
+    color: #007bff;
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+.account-actions a:hover {
+    color: #0056b3;
+}
+
+.alert {
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 4px;
+}
+
+.alert-error {
+    background-color: #ffe6e6;
+    border: 1px solid #ff9999;
+    color: #cc0000;
+}
+
+.alert-success {
+    background-color: #e6ffe6;
+    border: 1px solid #99ff99;
+    color: #006600;
+}
+
+.field-error {
+    color: #cc0000;
+    font-size: 0.9em;
+    margin-top: 5px;
+}
+
+.error-messages {
+    margin-bottom: 20px;
+    padding: 10px;
+    background-color: #fff8f8;
+    border-radius: 4px;
+}
+
+.google-login {
+    display: inline-block;
+    margin-top: 1rem;
+    padding: 0.5rem 1rem;
+    background-color: #4285f4;
+    color: white;
+    text-decoration: none;
+    border-radius: 4px;
+}
+
+.google-login:hover {
+    background-color: #357abd;
+}
+
+.modal .modal-content form div {
+    margin-bottom: 1rem;
+}
+
+.modal .modal-content form label {
+    display: block;
+    margin-bottom: 0.5rem;
+}
+
+.modal .modal-content form input {
+    width: 100%;
+    padding: 0.5rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.card {
+    box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+    border-radius: 18px;
+    background: #fff;
+    margin: 24px auto;
+    max-width: 600px;
+}
+
+/* Блок 'О нас' */
+.about-section {
+    width: 100vw;
+    position: relative;
+    left: 50%;
+    right: 50%;
+    margin-left: -50vw;
+    margin-right: -50vw;
+    background-image: linear-gradient(
+        180deg,
+        #EFEFEF 0%,
+        rgba(239, 239, 239, 0.8) 5%,
+        rgba(236, 87, 155, 0.4) 30%,
+        rgba(236, 87, 155, 0.4) 80%,
+        #EFEFEF 100%
+    );
+    background-size: 100% 100%;
+    box-shadow: 0 8px 32px rgba(255, 20, 147, 0.10), 0 2px 15px rgba(0,0,0,0.07);
+    min-height: 320px;
+    overflow: hidden;
+    padding: 0;
+    box-sizing: border-box;
+    animation: none;
+    padding-bottom: 56px;
+}
+
+.about-header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 18px;
+    padding-top: 40px;
+    width: 100%;
+    text-align: center;
+}
+
+.about-text {
+    font-size: 1.08rem;
+    color: #444;
+    line-height: 1.7;
+    word-break: break-word;
+    overflow-wrap: break-word;
+    width: 100%;
+    max-width: 100%;
+    margin: 0;
+    text-align: left;
+    padding: 0 0 40px 0;
+    box-sizing: border-box;
+    /* Убраны колонки */
+    column-count: unset;
+    column-gap: unset;
+}
+
+/* Чтобы списки и заголовки не разрывались между колонками (оставим на всякий случай) */
+.about-text ul,
+.about-text ol,
+.about-text h3,
+.about-text h4,
+.about-text h5,
+.about-text h6,
+.about-text .about-address,
+.about-text .about-welcome {
+    break-inside: avoid;
+    page-break-inside: avoid;
+    -webkit-column-break-inside: avoid;
+}
+
+.about-logo {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background: #f7f7f7;
+    object-fit: contain;
+}
+
+.about-title {
+    margin: 0;
+    font-size: 2rem;
+    color: #000; /* Было #b48eae */
+    letter-spacing: 1px;
+}
+
+.about-list-main {
+    margin: 10px 0 18px 18px;
+    padding: 0;
+    color: #7c5e7b;
+}
+
+.about-list-why {
+    margin: 0 0 18px 18px;
+    padding: 0;
+}
+
+.about-address,
+.about-welcome {
+    margin-bottom: 10px;
+}
+
+.about-highlight {
+    color: #b48eae;
+}
+
+/* Для мобильных устройств */
+@media (max-width: 600px) {
+    .about-title {
+        font-size: 1.3rem;
+    }
+    .about-logo {
+        width: 40px;
+        height: 40px;
+    }
+}
+
+.contacts-map-section {
+    width: 100vw;
+    position: relative;
+    left: 50%;
+    right: 50%;
+    margin-left: -50vw;
+    margin-right: -50vw;
+    background: linear-gradient(
+        180deg,
+        #EFEFEF 0%,
+        rgba(236, 87, 155, 0.15) 30%,
+        #fad0c4 80%,
+        #EFEFEF 100%
+    );
+    background-size: 100% 100%;
+    min-height: 340px;
+    padding: 0;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.contacts-title {
+    margin-top: 0;
+    margin-bottom: 28px;
+    color: #000; /* Было #b48eae */
+    font-size: 2.2rem;
+    text-align: center;
+    font-weight: 700;
+    letter-spacing: 1px;
+    width: 100%;
+}
+
+.contacts-map-inner {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: flex-start;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 24px 40px 24px;
+    box-sizing: border-box;
+    gap: 40px;
+}
+
+.contacts-info-cards {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    flex: 0 1 340px;
+    min-width: 220px;
+    max-width: 400px;
+    width: 100%;
+}
+
+.contacts-card {
+    background: rgba(255,255,255,0.82);
+    border-radius: 18px;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+    padding: 24px 18px;
+    font-size: 1.08rem;
+    color: #444;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.contacts-card h4 {
+    margin: 0 0 10px 0;
+    font-size: 1.15rem;
+    color: #000; /* Было #b48eae */
+    font-weight: 600;
+    letter-spacing: 0.5px;
+}
+
+.contacts-card p {
+    margin: 0 0 10px 0;
+}
+
+.contacts-connect-card a {
+    color: #b34469;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.contacts-connect-card a:hover {
+    color: #ff1493;
+    text-decoration: underline;
+}
+
+.contacts-map {
+    flex: 1 1 600px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 320px;
+}
+
+.map-placeholder {
+    width: 100%;
+    min-width: 320px;
+    max-width: 700px;
+    height: 400px;
+    background: rgba(255,255,255,0.7);
+    border-radius: 18px;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #b48eae;
+    font-size: 1.2rem;
+    font-weight: 600;
+    letter-spacing: 1px;
+}
+
+.map-placeholder iframe {
+    width: 100%;
+    height: 100%;
+    border: 0;
+    border-radius: 18px;
+}
+
+@media (max-width: 900px) {
+    .contacts-map-inner {
+        flex-direction: column;
+        gap: 24px;
+        padding: 0 8px 28px 8px;
+    }
+    .contacts-info-cards, .contacts-map {
+        min-width: 0;
+        max-width: 100%;
+    }
+    .map-placeholder {
+        min-width: 0;
+        width: 100%;
+        max-width: 100%;
+        height: 220px;
+    }
+    .contacts-title {
+        font-size: 1.3rem;
+        text-align: center;
+    }
+}
+
+.certificates-promotions-section {
+    padding: 40px 0 60px 0;
+    /* background: #faf7f2;  -- удалено старое свойство */
+    background: linear-gradient(
+        180deg,
+        #EFEFEF 5%,
+        #fad0c4 30%,
+        #ff9a9e 80%,
+        #EFEFEF 100%
+    );
+    background-size: 100% 100%;
+    padding-bottom: 100px;
+}
+
+.section-title {
+    text-align: center;
+    margin-bottom: 32px;
+    font-size: 32px;
+    color: #e67e22;
+}
+
+.cert-promos-cards {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 100px;
+}
+
+.cert-promo-card {
+    background: #fff;
+    border-radius: 16px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+    padding: 32px 24px;
+    max-width: 340px;
+    flex: 1 1 300px;
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.cert-promo-card h3 {
+    margin-bottom: 16px;
+    color: #e67e22;
+}
+
+.cert-promo-card img {
+    width: 100%;
+    border-radius: 8px;
+    margin-bottom: 16px;
+}
+
+.cert-promo-card p {
+    margin-bottom: 12px;
+}
+
+.cert-promo-card ul {
+    margin-bottom: 16px;
+    padding-left: 18px;
+}
+
+.cert-promo-link {
+    display: inline-block;
+    margin-top: 8px;
+    background: #e67e22;
+    color: #fff;
+    padding: 8px 20px;
+    border-radius: 8px;
+    text-decoration: none;
+    transition: background 0.2s;
+}
+
+.cert-promo-link:hover {
+    background: #d35400;
+}
+
+.price {
+    color: #e67e22;
+    font-weight: 600;
+}
+
+/* Адаптивность */
+@media (max-width: 900px) {
+    .cert-promos-cards {
+        flex-direction: column;
+        align-items: center;
+    }
+    .cert-promo-card {
+        max-width: 95vw;
+    }
+}
+
+.about-section,
+.contacts-map-section,
+.certificates-promotions-section {
+    padding-top: 60px;
+}
+
+.section-title,
+.contacts-title,
+.certificates-promotions-section > h2,
+.footer-col h3 {
+    color: #e67e22 !important;
+}
+
+.services-section-title {
+    text-align: center;
+    margin-top: 0;
+    margin-bottom: 32px;
+    font-size: 2rem;
+    color: #e67e22;
+    font-weight: 700;
+    letter-spacing: 1px;
+    padding: 0;
+}
+
+.about-section,
+.content-overlay,
+.contacts-map-section,
+.certificates-promotions-section {
+    padding-bottom: 60px;
+}
+
+#about,
+#services {
+    scroll-margin-top: 120px; /* если header 70px, добавьте чуть больше для воздуха */
+}
+
+#contacts {
+    scroll-margin-top: 80px;
+}
+
+
+/* Стили для личного кабинета */
+.account-container {
+    max-width: 500px;
+    margin: 40px    ;
+    padding: 32px 28px 28px 28px;
+    background-color: #f9f9f9;
+    border-radius: 14px;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+    font-family: 'Segoe UI', Arial, sans-serif;
+}
+
+.account-container h2 {
+    text-align: center;
+    margin-bottom: 18px;
+    color: #b48eae;
+    font-size: 2rem;
+}
+
+.account-container h3 {
+    margin-top: 18px;
+    color: #7c5e7b;
+    font-size: 1.2rem;
+}
+
+.account-container p,
+.account-container ul {
+    font-size: 1rem;
+    color: #333;
+}
+
+.account-actions ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.account-actions li {
+    margin-bottom: 10px;
+}
+
+.account-actions a {
+    color: #b48eae;
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+.account-actions a:hover {
+    color: #7c5e7b;
+}
+
+/* Стили для редактора профиля */
+.form-container {
+    max-width: 500px;
+    margin: 40px auto 0 auto;
+    padding: 32px 28px 28px 28px;
+    background-color: #fff;
+    border-radius: 14px;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+    font-family: 'Segoe UI', Arial, sans-serif;
+}
+
+.form-container h2 {
+    text-align: center;
+    margin-bottom: 18px;
+    color: #b48eae;
+    font-size: 2rem;
+}
+
+.form-container form {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+.form-container label {
+    font-weight: 500;
+    color: #7c5e7b;
+    margin-bottom: 6px;
+}
+
+.form-container input[type="text"],
+.form-container input[type="email"],
+.form-container input[type="password"] {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 1rem;
+    background: #f7f7f7;
+    transition: border-color 0.2s;
+}
+
+.form-container input[type="text"]:focus,
+.form-container input[type="email"]:focus,
+.form-container input[type="password"]:focus {
+    border-color: #b48eae;
+    outline: none;
+}
+
+.form-container button[type="submit"] {
+    background: linear-gradient(90deg, #b48eae 0%, #ec579b 100%);
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    padding: 12px 0;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.form-container button[type="submit"]:hover {
+    background: linear-gradient(90deg, #ec579b 0%, #b48eae 100%);
+}
+
+@media (max-width: 600px) {
+    .account-container,
+    .form-container {
+        padding: 16px 8px;
+        max-width: 98vw;
+    }
+    .account-container h2,
+    .form-container h2 {
+        font-size: 1.3rem;
+    }
+}
+
+.booking-page {
+    max-width: 480px;
+    margin: 40px auto 0 auto;
+    padding: 32px 28px 28px 28px;
+    background-color: #fff;
+    border-radius: 14px;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+    font-family: 'Segoe UI', Arial, sans-serif;
+
+}
+
+.booking-page h2 {
+    text-align: center;
+    margin-bottom: 18px;
+    color: #b48eae;
+    font-size: 2rem;
+}
+
+.booking-page form {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+.booking-page label {
+    font-weight: 500;
+    color: #7c5e7b;
+    margin-bottom: 6px;
+}
+
+.booking-page input[type="text"],
+.booking-page input[type="tel"],
+.booking-page input[type="date"],
+.booking-page input[type="time"],
+.booking-page select {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 1rem;
+    background: #f7f7f7;
+    transition: border-color 0.2s;
+}
+
+.booking-page input[type="text"]:focus,
+.booking-page input[type="tel"]:focus,
+.booking-page input[type="date"]:focus,
+.booking-page input[type="time"]:focus,
+.booking-page select:focus {
+    border-color: #b48eae;
+    outline: none;
+}
+
+.booking-page button[type="submit"],
+.booking-page .highlight {
+    background: linear-gradient(90deg, #b48eae 0%, #ec579b 100%);
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    padding: 12px 0;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.booking-page button[type="submit"]:hover,
+.booking-page .highlight:hover {
+    background: linear-gradient(90deg, #ec579b 0%, #b48eae 100%);
+}
+
+.booking-page .messages {
+    margin-top: 18px;
+    padding-left: 0;
+    list-style: none;
+}
+
+.booking-page .messages li {
+    color: #b22222;
+    font-size: 1rem;
+    margin-bottom: 6px;
+}
+
+@media (max-width: 600px) {
+    .booking-page {
+        padding: 16px 8px;
+        max-width: 98vw;
+    }
+    .booking-page h2 {
+        font-size: 1.3rem;
+    }
+}
+
+.service-detail-page {
+    max-width: 700px;
+    margin: 40px;
+    padding: 32px 28px 28px 28px;
+    background-color: #fff;
+    border-radius: 16px;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.10);
+    font-family: 'Segoe UI', Arial, sans-serif;
+}
+
+.service-detail-page h2 {
+    text-align: center;
+    margin-bottom: 18px;
+    color: #b48eae;
+    font-size: 2.2rem;
+    font-weight: 700;
+}
+
+.service-info {
+    margin-bottom: 24px;
+    font-size: 1.08rem;
+    color: #444;
+    background: #f7f7fa;
+    border-radius: 10px;
+    padding: 18px 16px;
+}
+
+.service-info p {
+    margin: 0 0 10px 0;
+}
+
+.service-variants {
+    margin-bottom: 28px;
+}
+
+.service-variants h3 {
+    color: #7c5e7b;
+    margin-bottom: 10px;
+    font-size: 1.15rem;
+}
+
+.service-variants ul {
+    list-style: disc inside;
+    padding-left: 18px;
+    margin: 0;
+}
+
+.service-variants li {
+    margin-bottom: 8px;
+    font-size: 1.05rem;
+}
+
+.service-examples {
+    margin-bottom: 32px;
+}
+
+.service-examples h3 {
+    color: #7c5e7b;
+    margin-bottom: 12px;
+    font-size: 1.15rem;
+}
+
+.examples-gallery {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    justify-content: flex-start;
+}
+
+.examples-gallery img {
+    width: 160px;
+    height: 120px;
+    object-fit: cover;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(180, 142, 174, 0.10);
+    background: #faf7fa;
+    transition: transform 0.2s;
+}
+
+.examples-gallery img:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 16px rgba(180, 142, 174, 0.18);
+}
+
+.service-detail-page .highlight,
+.service-detail-page a.highlight {
+    display: inline-block;
+    background: linear-gradient(90deg, #b48eae 0%, #ec579b 100%);
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    padding: 12px 28px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background 0.2s;
+    margin-top: 10px;
+}
+
+.service-detail-page .highlight:hover,
+.service-detail-page a.highlight:hover {
+    background: linear-gradient(90deg, #ec579b 0%, #b48eae 100%);
+}
+
+@media (max-width: 900px) {
+    .service-detail-page {
+        max-width: 98vw;
+        padding: 16px 8px;
+    }
+    .examples-gallery {
+        gap: 10px;
+    }
+    .examples-gallery img {
+        width: 45vw;
+        max-width: 180px;
+        height: 90px;
+    }
+    .service-detail-page h2 {
+        font-size: 1.3rem;
+    }
+}
+
+.account-page-flex {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 32px;
+    margin-top: 32px;
+}
+.account-container {
+    background: #fff;
+    border-radius: 16px;
+    box-shadow: 0 2px 16px rgba(178,34,34,0.08), 0 1.5px 6px rgba(178,34,34,0.04);
+    padding: 32px 28px 28px 28px;
+    min-width: 320px;
+    max-width: 400px;
+    margin-bottom: 32px;
+}
+.order-history {
+    width: 100%;
+    overflow-x: auto;
+    overflow-y: visible;
+    padding-bottom: 8px;
+    box-sizing: border-box;
+}
+.user-info h3, .account-actions h3, .order-history h2 {
+    margin-top: 0;
+    color: #b22222;
+    font-size: 1.2em;
+    margin-bottom: 12px;
+}
+.user-info p, .account-actions ul, .order-history ul {
+    margin-bottom: 10px;
+    font-size: 1em;
+}
+.account-actions ul {
+    list-style: none;
+    padding-left: 0;
+}
+.account-actions li {
+    margin-bottom: 8px;
+}
+.account-actions a {
+    color: #2e8b57;
+    text-decoration: none;
+    transition: color 0.2s;
+}
+.account-actions a:hover {
+    color: #b22222;
+    text-decoration: underline;
+}
+.order-history ul {
+    display: flex;
+    flex-direction: row;
+    gap: 24px;
+    padding-left: 16px;
+    padding-right: 16px;
+    margin: 0;
+    list-style: none;
+    min-width: 0;
+    box-sizing: border-box;
+}
+.order-history li {
+    min-width: 240px;
+    max-width: 320px;
+    background: #f7f7f7;
+    border-radius: 10px;
+    margin-bottom: 0;
+    padding: 16px 14px;
+    box-shadow: 0 1px 4px rgba(178,34,34,0.04);
+    font-size: 1em;
+    line-height: 1.6;
+    border-left: 4px solid #b22222;
+    flex: 0 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    box-sizing: border-box;
+    word-break: break-word;
+}
+.order-history li:last-child {
+    margin-bottom: 0;
+}
+.order-history strong {
+    color: #2e8b57;
+}
+.order-history .order-status {
+    display: inline-block;
+    padding: 2px 10px;
+    border-radius: 8px;
+    font-size: 0.98em;
+    margin-top: 4px;
+    background: #eee;
+    color: #b22222;
+    font-weight: 500;
+}
+.order-history .order-status[data-status="Выполнен"] {
+    background: #e6fbe6;
+    color: #228b22;
+}
+.order-history .order-status[data-status="Подтверждён"] {
+    background: #e6f0fb;
+    color: #1e5bb2;
+}
+.order-history .order-status[data-status="Отменён"] {
+    background: #fbe6e6;
+    color: #b22222;
+}
+.order-history .order-status[data-status="В обработке"] {
+    background: #fffbe6;
+    color: #b48e00;
+}
+.account-container.order-history-container {
+    min-width: 0;
+    max-width: 100vw;
+    width: 100vw;
+    box-sizing: border-box;
+    margin-bottom: 32px;
+    padding: 32px 0 28px 0;
+    background: #fff;
+    border-radius: 16px;
+    box-shadow: 0 2px 16px rgba(178,34,34,0.08), 0 1.5px 6px rgba(178,34,34,0.04);
+    overflow-x: auto;
+    /* Убираем горизонтальный скролл у body */
+}
+@media (max-width: 900px) {
+    .account-container.order-history-container {
+        padding: 12px 0 12px 0;
+        max-width: 100vw;
+        width: 100vw;
+    }
+    .order-history ul {
+        gap: 10px;
+        padding-left: 4px;
+        padding-right: 4px;
+    }
+    .order-history li {
+        min-width: 140px;
+        max-width: 180px;
+        font-size: 0.93em;
+        padding: 8px 4px;
+    }
+}
+
+.form-container {
+    max-width: 420px;
+    width: 100%;
+    margin: 40px auto 0 auto;
+    background: #fff;
+    border-radius: 14px;
+    box-shadow: 0 2px 16px rgba(178,34,34,0.08), 0 1.5px 6px rgba(178,34,34,0.04);
+    padding: 32px 24px 24px 24px;
+    box-sizing: border-box;
+}
+.form-group {
+    margin-bottom: 22px;
+}
+.form-control {
+    width: 100%;
+    min-width: 0;
+    max-width: 100%;
+    box-sizing: border-box;
+    padding: 8px 12px;
+    border: 1px solid #b48eae;
+    border-radius: 7px;
+    font-size: 1em;
+    background: #faf8fa;
+    transition: border-color 0.2s;
+}
+.form-control:focus {
+    border-color: #b22222;
+    outline: none;
+    background: #fff;
+}
+.btn.btn-primary {
+    background: #b22222;
+    color: #fff;
+    border: none;
+    border-radius: 7px;
+    padding: 10px 24px;
+    font-size: 1em;
+    cursor: pointer;
+    transition: background 0.2s;
+    margin-top: 10px;
+}
+.btn.btn-primary:hover {
+    background: #8e1a1a;
+}
+.alert, .alert-error {
+    margin-top: 8px;
+    padding: 8px 12px;
+    border-radius: 6px;
+    font-size: 0.97em;
+}
+.alert-error {
+    background: #ffeaea;
+    color: #b22222;
+    border: 1px solid #f5c2c7;
+}
+@media (max-width: 600px) {
+    .form-container {
+        max-width: 98vw;
+        padding: 18px 6vw 18px 6vw;
+    }
+}
+
+#support-chat-btn {
+    position: fixed;
+    bottom: 32px;
+    right: 32px;
+    z-index: 1001;
+    background: #b22222;
+    color: #fff;
+    border: none;
+    border-radius: 50%;
+    width: 58px;
+    height: 58px;
+    box-shadow: 0 2px 8px rgba(178,34,34,0.18);
+    font-size: 2em;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s;
+}
+#support-chat-btn:hover {
+    background: #8e1a1a;
+}
+#support-chat-modal {
+    display: none;
+    position: fixed;
+    z-index: 1002;
+    right: 32px;
+    bottom: 100px;
+    width: 340px;
+    max-width: 98vw;
+    background: #fff;
+    border-radius: 16px;
+    box-shadow: 0 4px 24px rgba(178,34,34,0.18);
+    padding: 0;
+    overflow: hidden;
+    flex-direction: column;
+}
+#support-chat-modal.active {
+    display: flex;
+    animation: chatFadeIn 0.2s;
+}
+@keyframes chatFadeIn {
+    from { opacity: 0; transform: translateY(40px);}
+    to { opacity: 1; transform: translateY(0);}
+}
+#support-chat-header {
+    background: #b22222;
+    color: #fff;
+    padding: 14px 18px;
+    font-size: 1.1em;
+    font-weight: 500;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+#support-chat-close {
+    background: none;
+    border: none;
+    color: #fff;
+    font-size: 1.3em;
+    cursor: pointer;
+    margin-left: 10px;
+}
+#support-chat-body {
+    padding: 0;
+    flex: 1 1 auto;
+    font-size: 1em;
+    color: #222;
+    background: #faf8fa;
+    min-height: 80px;
+    display: flex;
+    flex-direction: column;
+    height: 340px;
+}
+#support-chat-messages {
+    flex: 1 1 auto;
+    overflow-y: auto;
+    padding: 16px 14px 10px 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.support-chat-msg {
+    max-width: 80%;
+    padding: 8px 12px;
+    border-radius: 10px;
+    font-size: 0.98em;
+    word-break: break-word;
+    background: #fff;
+    align-self: flex-end;
+    color: #222;
+    box-shadow: 0 1px 4px rgba(178,34,34,0.04);
+}
+.support-chat-msg.support {
+    background: #e6f0fb;
+    color: #1e5bb2;
+    align-self: flex-start;
+}
+.support-chat-msg .msg-time {
+    display: block;
+    font-size: 0.85em;
+    color: #888;
+    margin-top: 2px;
+}
+#support-chat-form {
+    border-top: 1px solid #eee;
+    padding: 10px 14px;
+    background: #fff;
+    display: flex;
+    gap: 8px;
+}
+#support-chat-form input,
+#support-chat-form textarea {
+    flex: 1 1 auto;
+    border: 1px solid #b48eae;
+    border-radius: 7px;
+    padding: 7px 10px;
+    font-size: 1em;
+    background: #faf8fa;
+    resize: none;
+}
+#support-chat-form textarea {
+    min-height: 36px;
+    max-height: 80px;
+}
+#support-chat-form button {
+    background: #b22222;
+    color: #fff;
+    border: none;
+    border-radius: 7px;
+    padding: 8px 16px;
+    font-size: 1em;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+#support-chat-form button:hover {
+    background: #8e1a1a;
+}
+#support-chat-success {
+    color: #228b22;
+    font-size: 1em;
+    margin-top: 8px;
+    display: none;
+}
+#support-chat-error {
+    color: #b22222;
+    font-size: 1em;
+    margin-top: 8px;
+    display: none;
+}
+
+.service-detail-flex {
+    display: flex;
+    align-items: center; /* Центрирование по вертикали */
+    gap: 40px;
+}
+.service-detail-page {
+    flex: 1 1 0;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    padding: 32px 24px;
+    min-width: 320px;
+    min-height: 400px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+
+.service-detail-flex {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center; /* Центрирует слайдер по вертикали относительно карточки */
+    gap: 10px;           /* Задает расстояние между карточкой и слайдером */
+}
+
+.slider-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Центрирует слайдер по вертикали внутри контейнера */
+    align-items: center;     /* Центрирует слайдер по горизонтали внутри контейнера */
+    width: 420px;
+    min-width: 320px;
+    height: 100%;
+}
+
+.slider {
+    width: 100%;
+    height: 300px;
+    overflow: hidden;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    background: #fafafa;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

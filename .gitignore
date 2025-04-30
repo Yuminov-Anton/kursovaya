@@ -1,0 +1,11 @@
+.qodo
+.venv
+app/db.sqlite3
+
+# Python cache
+__pycache__/
+*.pyc
+**/__pycache__/
+**/*.pyc
+
+.env
